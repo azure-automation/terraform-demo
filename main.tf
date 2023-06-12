@@ -1,3 +1,6 @@
+resource "random_id" "uid" {
+  byte_length = 2
+}
 
 resource "azurerm_virtual_network" "main" {
   name                = "workshop-network"
