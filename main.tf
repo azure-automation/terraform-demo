@@ -70,3 +70,8 @@ resource "azurerm_virtual_machine" "terraformvm" {
 output "terraform-pip" {
   value = [azurerm_public_ip.terraform-pip.ip_address]
 }
+
+output "private_key" {
+  value = tls_private_key.workshop-key.private_key_pem
+  sensitive = true
+}
