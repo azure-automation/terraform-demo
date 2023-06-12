@@ -66,3 +66,7 @@ resource "azurerm_virtual_machine" "terraformvm" {
     }
   }
 }
+
+output "terraform-pip" {
+  value = [azurerm_public_ip.terraform-pip.ip_address]
+}
