@@ -13,6 +13,13 @@ resource "azurerm_subnet" "internal" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
+resource "azurerm_public_ip" "terraform-pip" {
+  name                = "terraform-pip--${lower(random_id.uid.hex)}"
+  resource_group_name = azurerm_resource_group.workshopgroup.name
+  location            = azurerm_resource_group.workshopgroup.location
+  allocation_method   = "Dynamic"
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "workshop-nic"
   location            = azurerm_resource_group.workshopgroup.location
@@ -21,6 +28,7 @@ resource "azurerm_network_interface" "main" {
     name                          = "workshopconfiguration"
     subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.terraform-pip.id
   }
 }
 
